@@ -1,0 +1,346 @@
+/* ============================================================
+   TASK 2 — BUILD IN 3D
+   3D Scene & CSS Transform Styles + GSSoC-style Cards
+   ============================================================ */
+
+/* ── Fixed 3D Canvas — always visible background ── */
+#three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Semi-transparent overlay so content is readable over canvas */
+.section {
+  position: relative;
+  z-index: 2;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 5, 15, 0.65);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.section-3d-hero::before {
+  background: rgba(8, 5, 15, 0.3);
+}
+
+/* ── Hero with 3D Canvas ── */
+.section-3d-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+.section-3d-hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: var(--space-6) var(--space-3);
+  max-width: 700px;
+}
+
+/* ── CSS 3D Card Grid ── */
+.css3d-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  perspective: 1200px;
+}
+
+/* ── Individual 3D Card ── */
+.css3d-card {
+  padding: 0;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  /* SLOW GSSoC-style reveal: 1.2s with a gentle ease */
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.6s ease;
+}
+
+.css3d-card:hover {
+  transform: rotateY(180deg);
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.25);
+}
+
+.css3d-card:focus {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+}
+
+.css3d-card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  transform-style: preserve-3d;
+}
+
+/* ── Front & Back Faces ── */
+.css3d-card-front,
+.css3d-card-back {
+  position: absolute;
+  inset: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.6s ease;
+}
+
+.css3d-card-front {
+  z-index: 2;
+}
+
+.css3d-card-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.15), rgba(168, 85, 247, 0.1));
+  border-color: var(--color-border-glow);
+}
+
+/* ── Icon inside 3D cards ── */
+.css3d-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: var(--space-3);
+  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.css3d-card:hover .css3d-icon {
+  transform: translateZ(30px) scale(1.1);
+}
+
+/* Ensure navbar stays above canvas */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+}
+
+/* Ensure footer stays above canvas */
+footer {
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 1024px) {
+  .css3d-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .css3d-grid {
+    grid-template-columns: 1fr;
+    perspective: none;
+  }
+
+  .css3d-card:hover {
+    transform: none;
+  }
+
+  .css3d-card-inner {
+    min-height: auto;
+  }
+
+  .css3d-card-front,
+  .css3d-card-back {
+    position: relative;
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+  }
+
+  .css3d-card-back {
+    display: none;
+  }
+
+  #three-canvas {
+    opacity: 0.3;
+  }
+}
+
+/* ── Responsive ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .css3d-card {
+    transition: none;
+  }
+
+  .css3d-card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   GSSoC-STYLE NUMBERED CARDS
+   ============================================================ */
+.gssoc-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.gssoc-card {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+
+.gssoc-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(168, 85, 247, 0.15);
+  border-color: var(--color-border-glow);
+}
+
+.gssoc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-cyan), var(--color-violet));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gssoc-card:hover::before {
+  opacity: 1;
+}
+
+/* Big number */
+.gssoc-card-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.25;
+  flex-shrink: 0;
+  min-width: 70px;
+  transition: opacity 0.4s ease;
+}
+
+.gssoc-card:hover .gssoc-card-num {
+  opacity: 0.5;
+}
+
+/* Card body */
+.gssoc-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Category tag */
+.gssoc-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.gssoc-tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Title */
+.gssoc-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Description */
+.gssoc-card-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Badges */
+.gssoc-card-badges {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.gssoc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  transition: all 0.3s ease;
+}
+
+.gssoc-card:hover .gssoc-badge {
+  border-color: var(--color-cyan-mid);
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gssoc-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .gssoc-card {
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+  }
+
+  .gssoc-card-num {
+    font-size: 2.5rem;
+    min-width: auto;
+  }
+}

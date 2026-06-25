@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NeuraBot — Task 2: Build in 3D. Interactive Three.js scene with CSS 3D transforms." />
+  <title>NeuraBot — Build in 3D</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="css/3d.css" />
+</head>
+
+<body>
+  <!-- Fixed 3D Canvas — always visible in background -->
+  <canvas id="three-canvas" aria-hidden="true"></canvas>
+  <div id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav id="navbar" aria-label="Main navigation">
+      <div class="container">
+        <div class="nav-inner">
+          <a href="index-3d.html" class="nav-logo" aria-label="NeuraBot — Go to top">
+            <span class="nav-logo-name">NEURABOT</span>
+          </a>
+          <ul class="nav-links" role="list">
+            <li><a href="#scene">Welcome</a></li>
+            <li><a href="#cards">3D Cards</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="nav-cta">
+            <a href="#contact" class="btn btn-primary">
+              <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+              Get Started
+            </a>
+          </div>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <nav id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+      <a href="#scene">Welcome</a>
+      <a href="#cards">3D Cards</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO / 3D SCENE -->
+    <section id="scene" class="section-3d-hero" aria-labelledby="scene-heading">
+      <div class="section-3d-hero-content">
+        <p class="section-label" style="justify-content:center;"><i class="fa-solid fa-hand-sparkles" aria-hidden="true"></i>&nbsp;Welcome to the Future</p>
+        <h1 class="section-title reveal" id="scene-heading">
+          Welcome to<br/>
+          <span class="text-gradient-cyan">NeuraBot 3D</span>
+        </h1>
+        <p class="section-subtitle reveal" style="margin:0 auto var(--space-4); text-align:center;">
+          Step into a world where intelligence meets innovation. Explore our AI-powered companion that learns, adapts, and evolves — rendered in stunning three dimensions.
+        </p>
+        <div class="hero-ctas reveal">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+            Get Started
+          </a>
+          <button class="btn btn-outline" id="reset-camera">
+            <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+            Reset View
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D CSS TRANSFORM CARDS -->
+    <section id="cards" class="section" aria-labelledby="cards-heading">
+      <div class="container">
+        <div style="text-align:center; max-width:640px; margin:0 auto;">
+          <p class="section-label reveal" style="justify-content:center;"><i class="fa-solid fa-layer-group" aria-hidden="true"></i>&nbsp;CSS 3D Transforms</p>
+          <h2 class="section-title reveal" id="cards-heading">
+            Depth Through<br/>
+            <span class="text-gradient-violet">Pure CSS</span>
+          </h2>
+          <p class="section-subtitle reveal" style="margin:0 auto;">
+            Hover to reveal what's behind each card. Slow, smooth, deliberate — like peeling back layers of reality.
+          </p>
+        </div>
+
+        <div class="css3d-grid">
+
+          <!-- Card 1: Geometry → Stats -->
+          <article class="css3d-card glass-card reveal reveal-delay-1" tabindex="0">
+            <div class="css3d-card-inner">
+              <div class="css3d-card-front">
+                <div class="css3d-icon icon-cyan"><i class="fa-solid fa-cube"></i></div>
+                <h3 class="highlight-title">3D Geometry</h3>
+                <p class="highlight-desc">Parametric shapes rendered in real-time with vertex shading and dynamic lighting.</p>
+                <div class="highlight-meta">
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  <span>Hover to reveal</span>
+                </div>
+              </div>
+              <div class="css3d-card-back">
+                <h3 class="highlight-title" style="margin-bottom:16px;">By the Numbers</h3>
+                <div style="display:flex; flex-direction:column; gap:12px; width:100%;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--color-border);">
+                    <span style="font-size:0.85rem; color:var(--color-text-secondary);">Vertices per frame</span>
+                    <span style="font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--color-cyan);">2.4M+</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--color-border);">
+                    <span style="font-size:0.85rem; color:var(--color-text-secondary);">Draw calls optimized</span>
+                    <span style="font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--color-cyan);">98%</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--color-border);">
+                    <span style="font-size:0.85rem; color:var(--color-text-secondary);">Shape types supported</span>
+                    <span style="font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--color-cyan);">40+</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0;">
+                    <span style="font-size:0.85rem; color:var(--color-text-secondary);">Render latency</span>
+                    <span style="font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--color-cyan);">&lt;16ms</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Lighting → Use Cases -->
+          <article class="css3d-card glass-card reveal reveal-delay-2" tabindex="0">
+            <div class="css3d-card-inner">
+              <div class="css3d-card-front">
+                <div class="css3d-icon icon-violet"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h3 class="highlight-title">Lighting</h3>
+                <p class="highlight-desc">Ambient, point, and spot lights create realistic shadows and reflections in the scene.</p>
+                <div class="highlight-meta">
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  <span>Hover to reveal</span>
+                </div>
+              </div>
+              <div class="css3d-card-back">
+                <h3 class="highlight-title" style="margin-bottom:16px;">Real-World Use Cases</h3>
+                <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+                  <div style="display:flex; align-items:flex-start; gap:10px;">
+                    <i class="fa-solid fa-check-circle" style="color:var(--color-violet); margin-top:3px; flex-shrink:0;"></i>
+                    <div>
+                      <div style="font-size:0.9rem; font-weight:600; color:var(--color-text-primary);">Product Visualization</div>
+                      <div style="font-size:0.8rem; color:var(--color-text-muted);">Rotate 3D product models in-browser before purchase</div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:flex-start; gap:10px;">
+                    <i class="fa-solid fa-check-circle" style="color:var(--color-violet); margin-top:3px; flex-shrink:0;"></i>
+                    <div>
+                      <div style="font-size:0.9rem; font-weight:600; color:var(--color-text-primary);">Architectural Walkthroughs</div>
+                      <div style="font-size:0.8rem; color:var(--color-text-muted);">Explore building designs with realistic lighting</div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:flex-start; gap:10px;">
+                    <i class="fa-solid fa-check-circle" style="color:var(--color-violet); margin-top:3px; flex-shrink:0;"></i>
+                    <div>
+                      <div style="font-size:0.9rem; font-weight:600; color:var(--color-text-primary);">Medical Imaging</div>
+                      <div style="font-size:0.8rem; color:var(--color-text-muted);">3D rendering of CT/MRI scans for surgical planning</div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:flex-start; gap:10px;">
+                    <i class="fa-solid fa-check-circle" style="color:var(--color-violet); margin-top:3px; flex-shrink:0;"></i>
+                    <div>
+                      <div style="font-size:0.9rem; font-weight:600; color:var(--color-text-primary);">Gaming & Simulations</div>
+                      <div style="font-size:0.8rem; color:var(--color-text-muted);">Immersive training environments with physics</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Interactivity → Tech Stack -->
+          <article class="css3d-card glass-card reveal reveal-delay-3" tabindex="0">
+            <div class="css3d-card-inner">
+              <div class="css3d-card-front">
+                <div class="css3d-icon icon-gold"><i class="fa-solid fa-hand-pointer"></i></div>
+                <h3 class="highlight-title">Interactivity</h3>
+                <p class="highlight-desc">Click, drag, and hover to interact with objects. Raycasting enables precise selection.</p>
+                <div class="highlight-meta">
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  <span>Hover to reveal</span>
+                </div>
+              </div>
+              <div class="css3d-card-back">
+                <h3 class="highlight-title" style="margin-bottom:16px;">Tech Stack</h3>
+                <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+                  <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; background:rgba(196,181,253,0.08); border-radius:8px;">
+                    <i class="fa-solid fa-cube" style="color:var(--color-gold); width:18px; text-align:center;"></i>
+                    <div>
+                      <div style="font-size:0.85rem; font-weight:600; color:var(--color-text-primary);">Three.js r128</div>
+                      <div style="font-size:0.75rem; color:var(--color-text-muted);">WebGL 3D library for rendering</div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; background:rgba(196,181,253,0.08); border-radius:8px;">
+                    <i class="fa-solid fa-code" style="color:var(--color-gold); width:18px; text-align:center;"></i>
+                    <div>
+                      <div style="font-size:0.85rem; font-weight:600; color:var(--color-text-primary);">CSS transform-style</div>
+                      <div style="font-size:0.75rem; color:var(--color-text-muted);">preserve-3d for true perspective</div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; background:rgba(196,181,253,0.08); border-radius:8px;">
+                    <i class="fa-solid fa-palette" style="color:var(--color-gold); width:18px; text-align:center;"></i>
+                    <div>
+                      <div style="font-size:0.85rem; font-weight:600; color:var(--color-text-primary);">GLSL Shaders</div>
+                      <div style="font-size:0.75rem; color:var(--color-text-muted);">Custom vertex & fragment programs</div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; background:rgba(196,181,253,0.08); border-radius:8px;">
+                    <i class="fa-solid fa-gauge-high" style="color:var(--color-gold); width:18px; text-align:center;"></i>
+                    <div>
+                      <div style="font-size:0.85rem; font-weight:600; color:var(--color-text-primary);">requestAnimationFrame</div>
+                      <div style="font-size:0.75rem; color:var(--color-text-muted);">V-synced 60fps render loop</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES — GSSoC-style numbered cards -->
+    <section id="features" class="section" aria-labelledby="features-heading">
+      <div class="container">
+        <div style="text-align:center; max-width:640px; margin:0 auto;">
+          <p class="section-label" style="justify-content:center;"><i class="fa-solid fa-star" aria-hidden="true"></i>&nbsp;What's Changing</p>
+          <h2 class="section-title reveal" id="features-heading">
+            What's New in<br/>
+            <span class="text-gradient-cyan">NeuraBot 2026</span>
+          </h2>
+        </div>
+
+        <div class="gssoc-cards">
+
+          <article class="gssoc-card glass-card reveal reveal-delay-1">
+            <div class="gssoc-card-num text-gradient-cyan">01</div>
+            <div class="gssoc-card-body">
+              <div class="gssoc-card-tag">
+                <span class="gssoc-tag-dot" style="background:var(--color-cyan);"></span>
+                <span>Neural Processing</span>
+              </div>
+              <h3 class="gssoc-card-title">AI Brain Engine</h3>
+              <p class="gssoc-card-desc">Advanced neural processing that understands context, learns from interactions, and provides intelligent responses tailored to your needs.</p>
+              <div class="gssoc-card-badges">
+                <span class="gssoc-badge">Core Engine</span>
+                <span class="gssoc-badge">Self-Learning</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="gssoc-card glass-card reveal reveal-delay-2">
+            <div class="gssoc-card-num text-gradient-violet">02</div>
+            <div class="gssoc-card-body">
+              <div class="gssoc-card-tag">
+                <span class="gssoc-tag-dot" style="background:var(--color-violet);"></span>
+                <span>Real-Time Sync</span>
+              </div>
+              <h3 class="gssoc-card-title">Neural Sync</h3>
+              <p class="gssoc-card-desc">Seamlessly connect and synchronize across all your devices with real-time neural mapping and instant data synchronization.</p>
+              <div class="gssoc-card-badges">
+                <span class="gssoc-badge">Multi-Device</span>
+                <span class="gssoc-badge">Instant Sync</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="gssoc-card glass-card reveal reveal-delay-3">
+            <div class="gssoc-card-num text-gradient-gold">03</div>
+            <div class="gssoc-card-body">
+              <div class="gssoc-card-tag">
+                <span class="gssoc-tag-dot" style="background:var(--color-gold);"></span>
+                <span>Quantum Security</span>
+              </div>
+              <h3 class="gssoc-card-title">Cyber Shield</h3>
+              <p class="gssoc-card-desc">Military-grade encryption and quantum-resistant security protocols keep your data safe in the digital frontier.</p>
+              <div class="gssoc-card-badges">
+                <span class="gssoc-badge">Zero Trust</span>
+                <span class="gssoc-badge">Encrypted</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="gssoc-card glass-card reveal reveal-delay-4">
+            <div class="gssoc-card-num text-gradient-cyan">04</div>
+            <div class="gssoc-card-body">
+              <div class="gssoc-card-tag">
+                <span class="gssoc-tag-dot" style="background:var(--color-cyan);"></span>
+                <span>ML-Powered</span>
+              </div>
+              <h3 class="gssoc-card-title">Adaptive Learning</h3>
+              <p class="gssoc-card-desc">The more you use it, the smarter it gets. Our AI continuously learns your preferences and adapts to your workflow.</p>
+              <div class="gssoc-card-badges">
+                <span class="gssoc-badge">Self-Evolving</span>
+                <span class="gssoc-badge">Personalized</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-labelledby="about-3d-heading">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image-wrap reveal-left">
+            <img src="../cybrogimg.png" alt="Futuristic Daft Punk-style holographic cyborg helmet" loading="lazy" />
+          </div>
+          <div class="reveal-right about-text-side">
+            <p class="section-label"><i class="fa-solid fa-cube" aria-hidden="true"></i>&nbsp;Task 2 — Build in 3D</p>
+            <h2 class="section-title" id="about-3d-heading">
+              The Third<br/>
+              <span class="text-gradient-hero">Dimension</span>
+            </h2>
+            <p style="color:var(--color-text-secondary); line-height:1.8; font-size:1.15rem; margin-bottom:var(--space-3)">
+              <strong style="color:var(--color-text-primary)">CYBORG</strong> — the fusion of human consciousness with machine intelligence. NeuraBot invites you to explore the blurred boundary between biology and technology, where neural networks mirror human thought, robotic limbs obey the mind, and algorithms predict the future.
+            </p>
+            <p style="color:var(--color-text-secondary); line-height:1.8; font-size:1.1rem; margin-bottom:var(--space-4)">
+              Be part of a revolution that's not just about building machines — it's about transcending human limitations. The future isn't coming. <em style="color:var(--color-cyan)">It's already here.</em>
+            </p>
+            <div class="about-tag-list">
+              <span class="about-tag"><i class="fa-solid fa-cube" aria-hidden="true"></i> Three.js</span>
+              <span class="about-tag"><i class="fa-solid fa-code" aria-hidden="true"></i> CSS 3D</span>
+              <span class="about-tag"><i class="fa-solid fa-brain" aria-hidden="true"></i> Neural Interfaces</span>
+              <span class="about-tag"><i class="fa-solid fa-dna" aria-hidden="true"></i> Biotechnology</span>
+              <span class="about-tag"><i class="fa-solid fa-cloud" aria-hidden="true"></i> Cloud Computing</span>
+              <span class="about-tag"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Cyber Security</span>
+            </div>
+            <div class="about-stats-row" style="margin-top:var(--space-5)">
+              <div class="glass-card about-stat-card">
+                <div class="about-stat-num text-gradient-cyan">50K+</div>
+                <div class="about-stat-desc">Active Users</div>
+              </div>
+              <div class="glass-card about-stat-card">
+                <div class="about-stat-num text-gradient-violet">3s</div>
+                <div class="about-stat-desc">Avg Response</div>
+              </div>
+              <div class="glass-card about-stat-card">
+                <div class="about-stat-num text-gradient-gold">150+</div>
+                <div class="about-stat-desc">Integrations</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div style="text-align:center; max-width:640px; margin:0 auto;">
+          <p class="section-label reveal" style="justify-content:center;"><i class="fa-solid fa-quote-left" aria-hidden="true"></i>&nbsp;What Users Say</p>
+          <h2 class="section-title reveal" id="testimonials-heading">
+            Stories from the<br/>
+            <span class="text-gradient-cyan">Future-Makers</span>
+          </h2>
+        </div>
+
+        <div class="testimonials-grid" role="list">
+          <article class="testimonial-card glass-card reveal reveal-delay-1" role="listitem">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <p class="testimonial-quote">NeuraBot has completely transformed how I work. It's like having a super-smart, incredibly capable assistant by my side 24/7. The AI Brain feature is mind-blowing.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">AR</div>
+              <div>
+                <div class="testimonial-name">Ananya Reddy</div>
+                <div class="testimonial-role">Tech Enthusiast · NIT Warangal</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card glass-card reveal reveal-delay-2" role="listitem">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <p class="testimonial-quote">The neural sync feature is mind-blowing! Everything just works seamlessly across all my devices. It's not just a tool — it's a career launchpad.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">KP</div>
+              <div>
+                <div class="testimonial-name">Karan Patel</div>
+                <div class="testimonial-role">Creative Director · BITS Pilani</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card glass-card reveal reveal-delay-3" role="listitem">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star-half-stroke" aria-hidden="true"></i>
+            </div>
+            <p class="testimonial-quote">Finally, AI that doesn't feel intimidating. NeuraBot's friendly personality makes interacting with advanced tech actually fun. I'll use it every day.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">MS</div>
+              <div>
+                <div class="testimonial-name">Mitra Shah</div>
+                <div class="testimonial-role">Startup Founder · IIT Bombay</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section" aria-labelledby="contact-heading">
+      <div class="container">
+        <div style="text-align:center; max-width:640px; margin:0 auto;">
+          <p class="section-label reveal" style="justify-content:center;"><i class="fa-solid fa-envelope" aria-hidden="true"></i>&nbsp;Get In Touch</p>
+          <h2 class="section-title reveal" id="contact-heading">
+            Ready to Enhance<br/>
+            <span class="text-gradient-violet">Your Future?</span>
+          </h2>
+          <p class="section-subtitle reveal" style="margin:0 auto var(--space-6);">
+            Join thousands of innovators who've already made the leap. Let's build the future together.
+          </p>
+        </div>
+
+        <form class="contact-form reveal" id="contact-form">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" placeholder="Enter your name" required />
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" placeholder="Tell us what you need..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            Send Message
+          </button>
+        </form>
+
+        <div style="display:flex; align-items:center; justify-content:center; gap:var(--space-5); flex-wrap:wrap; margin-top:var(--space-6); padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+          <div style="display:flex; align-items:center; gap:8px; color:var(--color-text-muted); font-size:0.85rem;">
+            <i class="fa-solid fa-shield-halved" style="color:var(--color-cyan);" aria-hidden="true"></i> Secure Communication
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; color:var(--color-text-muted); font-size:0.85rem;">
+            <i class="fa-solid fa-clock" style="color:var(--color-violet);" aria-hidden="true"></i> 24/7 Support
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; color:var(--color-text-muted); font-size:0.85rem;">
+            <i class="fa-solid fa-certificate" style="color:var(--color-gold);" aria-hidden="true"></i> Enterprise Grade
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer aria-label="Site footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 NeuraBot — Task 2: Build in 3D</p>
+        <div class="footer-bottom-links">
+          <a href="../index.html">Task 1</a>
+          <a href="../task3/index-parallax.html">Task 3</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="js/three-scene.js"></script>
+</body>
+</html>
